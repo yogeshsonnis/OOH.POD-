@@ -7,7 +7,6 @@ namespace OOH.POD.DAL
     public class CompartmentRepository
     {
         private readonly string _connectionString = "Data Source=newcompartments.db";
-
         public void EnsureTablesCreated()
         {
             var jsonList = new[]
@@ -49,63 +48,67 @@ namespace OOH.POD.DAL
 
         public List<Compartment> GetCompartmentsWithShipments()
         {
-            var compartments = new List<Compartment>();
-            using var connection = new SqliteConnection(_connectionString);
-            connection.Open();
-
-            // Get all compartments
-            var cmd = connection.CreateCommand();
-            cmd.CommandText = "SELECT * FROM Compartment";
-            using var reader = cmd.ExecuteReader();
-            var compartmentIds = new List<long>();
-
-            while (reader.Read())
+            try
             {
-                var compartment = new Compartment
-                {
-                    Id = reader.GetInt64(reader.GetOrdinal("Id")),
-                    CompartmentName = reader["CompartmentName"]?.ToString(),
-                    CompartmentSize = reader["CompartmentSize"]?.ToString(),
-                    CompartmentType = reader["CompartmentType"] as string,
-                    IsClosed = reader.GetInt64(reader.GetOrdinal("IsClosed")) == 1,
-                    IsLocked = reader.GetInt64(reader.GetOrdinal("IsLocked")) == 1,
-                    IsOutOfService = reader.GetInt64(reader.GetOrdinal("IsOutOfService")) == 1,
-                    Shipments = new System.Collections.ObjectModel.ObservableCollection<Shipment>()
-                };
-                compartmentIds.Add(compartment.Id);
-                compartments.Add(compartment);
-            }
-            reader.Close();
+                var compartments = new List<Compartment>();
+                using var connection = new SqliteConnection(_connectionString);
+                connection.Open();
+                // Get all compartments
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = "SELECT * FROM Compartment";
+                using var reader = cmd.ExecuteReader();
+                var compartmentIds = new List<long>();
 
-            // Get all shipments for all compartments
-            if (compartmentIds.Count > 0)
-            {
-                var shipmentCmd = connection.CreateCommand();
-                shipmentCmd.CommandText = $"SELECT * FROM Shipment WHERE CompartmentId IN ({string.Join(",", compartmentIds)})";
-                using var shipmentReader = shipmentCmd.ExecuteReader();
-                while (shipmentReader.Read())
+                while (reader.Read())
                 {
-                    var shipment = new Shipment
+                    var compartment = new Compartment
                     {
-                        Id = shipmentReader.GetInt64(shipmentReader.GetOrdinal("Id")),
-                        TrackingNumber = shipmentReader["TrackingNumber"]?.ToString(),
-                        TimeStored = System.DateTime.Parse(shipmentReader["TimeStored"]?.ToString() ?? System.DateTime.MinValue.ToString()),
-                        TimeOverdue = System.DateTime.Parse(shipmentReader["TimeOverdue"]?.ToString() ?? System.DateTime.MinValue.ToString()),
-                        TimeStayed = shipmentReader["TimeStayed"]?.ToString()
+                        Id = reader.GetInt64(reader.GetOrdinal("Id")),
+                        CompartmentName = reader["CompartmentName"]?.ToString(),
+                        CompartmentSize = reader["CompartmentSize"]?.ToString(),
+                        CompartmentType = reader["CompartmentType"] as string,
+                        IsClosed = reader.GetInt64(reader.GetOrdinal("IsClosed")) == 1,
+                        IsLocked = reader.GetInt64(reader.GetOrdinal("IsLocked")) == 1,
+                        IsOutOfService = reader.GetInt64(reader.GetOrdinal("IsOutOfService")) == 1,
+                        Shipments = new System.Collections.ObjectModel.ObservableCollection<Shipment>()
                     };
-                    long compartmentId = shipmentReader.GetInt64(shipmentReader.GetOrdinal("CompartmentId"));
-                    var compartment = compartments.Find(c => c.Id == compartmentId);
-                    compartment?.Shipments.Add(shipment);
+                    compartmentIds.Add(compartment.Id);
+                    compartments.Add(compartment);
                 }
-            }
+                reader.Close();
 
-            else
+                // Get all shipments for all compartments
+                if (compartmentIds.Count > 0)
+                {
+                    var shipmentCmd = connection.CreateCommand();
+                    shipmentCmd.CommandText = $"SELECT * FROM Shipment WHERE CompartmentId IN ({string.Join(",", compartmentIds)})";
+                    using var shipmentReader = shipmentCmd.ExecuteReader();
+                    while (shipmentReader.Read())
+                    {
+                        var shipment = new Shipment
+                        {
+                            Id = shipmentReader.GetInt64(shipmentReader.GetOrdinal("Id")),
+                            TrackingNumber = shipmentReader["TrackingNumber"]?.ToString(),
+                            TimeStored = System.DateTime.Parse(shipmentReader["TimeStored"]?.ToString() ?? System.DateTime.MinValue.ToString()),
+                            TimeOverdue = System.DateTime.Parse(shipmentReader["TimeOverdue"]?.ToString() ?? System.DateTime.MinValue.ToString()),
+                            TimeStayed = shipmentReader["TimeStayed"]?.ToString()
+                        };
+                        long compartmentId = shipmentReader.GetInt64(shipmentReader.GetOrdinal("CompartmentId"));
+                        var compartment = compartments.Find(c => c.Id == compartmentId);
+                        compartment?.Shipments.Add(shipment);
+                    }
+                }
+
+
+
+
+                return compartments;
+
+            }
+            catch (Exception ex)
             {
-                EnsureTablesCreated();
+                throw new Exception(ex.Message, ex);
             }
-
-
-            return compartments;
         }
 
         public void UpdateCompartment(Compartment compartment)
@@ -135,7 +138,7 @@ namespace OOH.POD.DAL
 
         private void SaveCompartmentToDatabase(Compartment compartment)
         {
-            string connectionString = "Data Source=compartments.db";
+            string connectionString = "Data Source=newcompartments.db";
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
 

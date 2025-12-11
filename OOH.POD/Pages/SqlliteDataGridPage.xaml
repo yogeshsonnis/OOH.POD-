@@ -6,7 +6,44 @@
              xmlns:local="clr-namespace:OOH.POD.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Red">
-            
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+            <Button Content="Load" Command="{Binding LoadCommand}" Margin="0,0,10,0"/>
+            <Button Content="Save" Command="{Binding SaveCommand}"/>
+            <Button Content="Delete Compartment"
+     Command="{Binding DeleteCompartmentCommand}"
+     
+     Margin="10,0,10,0"/>
+
+        </StackPanel>
+        <DataGrid ItemsSource="{Binding Compartments}"
+          SelectedItem="{Binding SelectedCompartment, Mode=TwoWay}"
+          AutoGenerateColumns="False" CanUserAddRows="False" Margin="5" IsReadOnly="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding CompartmentName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Size" Binding="{Binding CompartmentSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Type" Binding="{Binding CompartmentType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridCheckBoxColumn Header="Closed" Binding="{Binding IsClosed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridCheckBoxColumn Header="Locked" Binding="{Binding IsLocked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridCheckBoxColumn Header="Out Of Service" Binding="{Binding IsOutOfService, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10">
+                        <Button Content="Add Shipment"
+                        Command="{Binding DataContext.AddShipmentCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                        Margin="0,0,0,5"/>
+                        <DataGrid ItemsSource="{Binding Shipments}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Tracking #" Binding="{Binding TrackingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Stored" Binding="{Binding TimeStored, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:yyyy-MM-dd HH:mm\}}" />
+                                <DataGridTextColumn Header="Overdue" Binding="{Binding TimeOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:yyyy-MM-dd HH:mm\}}" />
+                                <DataGridTextColumn Header="Stayed" Binding="{Binding TimeStayed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+    </DockPanel>
 </UserControl>
