@@ -67,13 +67,13 @@ namespace OOH.POD.ViewModels
             {
                 CurrentScreen = FrmScanBarcodePageVM;
             }
-            else if (CurrentScreen == GridPageVM)
+            else if (CurrentScreen == SqlliteDataGridVM)
             {
                 CurrentScreen = FrmEnterBarcodePageVM;
             }
-            else if (CurrentScreen == SqlliteDataGridVM)
+            else if (CurrentScreen == GridPageVM)
             {
-                CurrentScreen = GridPageVM;
+                CurrentScreen = SqlliteDataGridVM;
             }
         }
 
@@ -82,6 +82,6 @@ namespace OOH.POD.ViewModels
         public void NavigateToFrmScanBarcode() => CurrentScreen = FrmScanBarcodePageVM;
         public void NavigateToFrmEnterBarcode() => CurrentScreen = FrmEnterBarcodePageVM;
 
-        public void NavigateToGridPage() => CurrentScreen = GridPageVM;
+        public void NavigateToGridPage() => CurrentScreen = SqlliteDataGridVM;
     }
 }

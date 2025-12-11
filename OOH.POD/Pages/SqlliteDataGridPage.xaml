@@ -38,7 +38,7 @@
                                 <DataGridTextColumn Header="Tracking #" Width="300" Binding="{Binding TrackingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <DataGridTextColumn Header="Stored" Width="300" Binding="{Binding TimeStored, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:yyyy-MM-dd HH:mm\}}" />
                                 <DataGridTextColumn Header="Overdue" Width="300" Binding="{Binding TimeOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:yyyy-MM-dd HH:mm\}}" />
-                                <DataGridTextColumn Header="Stayed" Width="600" Binding="{Binding TimeStayed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Stayed" Width="450" Binding="{Binding TimeStayed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
