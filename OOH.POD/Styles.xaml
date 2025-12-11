@@ -513,13 +513,13 @@ Padding="{TemplateBinding Padding}">
                     <ControlTemplate.Triggers>
                         <!-- Hover -->
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="#CFCFCF"/>
+                            <Setter Property="BorderBrush" Value="#7bb8e7"/>
                             <Setter Property="Background" Value="#FAFAFA"/>
                         </Trigger>
 
                         <!-- Pressed -->
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#F0F0F0"/>
+                            <Setter Property="Background" Value="#7bb8e7"/>
                             <Setter Property="BorderBrush" Value="#B5B5B5"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
