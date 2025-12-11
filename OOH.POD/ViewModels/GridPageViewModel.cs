@@ -1,11 +1,6 @@
 ﻿using OOH.POD.Models;
 using OOH.POD.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace OOH.POD.ViewModels
@@ -28,6 +23,7 @@ namespace OOH.POD.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand AddCompartmentCommand { get; }
         public ICommand AddShipmentCommand { get; }
+        public ICommand NextPageCommand { get; }
 
         public GridPageViewModel(MainViewModel mainVM)
         {
@@ -40,6 +36,7 @@ namespace OOH.POD.ViewModels
             SaveCommand = new RelayCommand(async _ => await SaveAsync());
             AddCompartmentCommand = new RelayCommand(_ => AddCompartment());
             AddShipmentCommand = new RelayCommand(c => AddShipment(c));
+            NextPageCommand = new RelayCommand(_ => _mainVM.NavigateNextPage());
         }
 
         public async Task LoadAsync()

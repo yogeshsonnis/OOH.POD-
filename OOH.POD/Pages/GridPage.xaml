@@ -132,6 +132,7 @@
                     <Button Content="Load" Style="{StaticResource BlueButtonStyle}" Command="{Binding LoadCommand}" Width="80"/>
                     <Button Content="Save" Style="{StaticResource BlueButtonStyle}" Command="{Binding SaveCommand}" Width="80" Margin="10,0,0,0"/>
                     <Button Content="Add Compartment" Style="{StaticResource BlueButtonStyle}" Command="{Binding AddCompartmentCommand}" Width="140" Margin="10,0,0,0" />
+                    <Button Content="Next  Page" Style="{StaticResource BlueButtonStyle}" Command="{Binding NextPageCommand}"  Width="140" Margin="300,0,0,0" />
                 </StackPanel>
 
                 <!-- Compartments Grid -->

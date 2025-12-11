@@ -35,6 +35,9 @@
         <DataTemplate DataType="{x:Type vm:FrmEnterBarcodePageViewModel}">
             <screens:FrmEnterBarcode/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SqlliteDataGridViewModel}">
+            <screens:SqlliteDataGridPage/>
+        </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:GridPageViewModel}">
             <screens:GridPage/>
@@ -45,30 +48,30 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-           
+
             <RowDefinition Height="180"/>
-           
+
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        
+
         <Border>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                     <GradientStop Color="#CFE5FA" Offset="0"/>
-                    
+
                     <GradientStop Color="#90C2E8" Offset="0.5"/>
-                    
+
                     <GradientStop Color="#69A9DB" Offset="1"/>
-                    
+
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
                 <Button Visibility="{Binding IsOnDropOffScreen, Converter={StaticResource BoolToVisibilityConverter}}"
      
                     HorizontalAlignment="Left" Command="{Binding NavigateBackCommand}" x:Name="BackButton"  Style="{StaticResource Buttonbackstyle}" Width="80" Margin="40,0,0,0" />
-                
-                
+
+
                 <Border Width="100" Height="100" Background="LightGray" CornerRadius="50">
                     <Image Source="/Images/oohpod.png" Stretch="Uniform" />
                 </Border>
@@ -76,7 +79,7 @@
             </Grid>
         </Border>
 
-       
+
         <ContentControl Content="{Binding CurrentScreen}" Grid.Row="1"/>
 
     </Grid>

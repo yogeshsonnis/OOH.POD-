@@ -12,7 +12,8 @@ namespace OOH.POD.ViewModels
             RecipientsPageVM = new RecipientsPageViewModel(this);
             FrmScanBarcodePageVM = new FrmScanBarcodePageViewModel(this);
             FrmEnterBarcodePageVM = new FrmEnterBarcodePageViewModel(this);
-            GridPageVM= new GridPageViewModel(this);
+            SqlliteDataGridVM = new SqlliteDataGridViewModel(this);
+            GridPageVM = new GridPageViewModel(this);
             DropOffVM = new DropOffViewModel(this);
             CurrentScreen = HomeVM;
             NavigateBackCommand = new RelayCommand(_ => NavigateBack());
@@ -25,6 +26,7 @@ namespace OOH.POD.ViewModels
         public GridPageViewModel GridPageVM { get; }
         public DeliveryDriverViewModel DeliveryDriverVM { get; }
         public RecipientsPageViewModel RecipientsPageVM { get; }
+        public SqlliteDataGridViewModel SqlliteDataGridVM { get; }
         public FrmScanBarcodePageViewModel FrmScanBarcodePageVM { get; }
         public FrmEnterBarcodePageViewModel FrmEnterBarcodePageVM { get; }
         public DropOffViewModel DropOffVM { get; }
@@ -40,16 +42,16 @@ namespace OOH.POD.ViewModels
             }
         }
 
-        public bool IsOnDropOffScreen => CurrentScreen == DropOffVM || CurrentScreen == DeliveryDriverVM || CurrentScreen == RecipientsPageVM || CurrentScreen == FrmScanBarcodePageVM || CurrentScreen == FrmEnterBarcodePageVM || CurrentScreen == GridPageVM;
+        public bool IsOnDropOffScreen => CurrentScreen == DropOffVM || CurrentScreen == DeliveryDriverVM || CurrentScreen == RecipientsPageVM || CurrentScreen == FrmScanBarcodePageVM || CurrentScreen == FrmEnterBarcodePageVM || CurrentScreen == GridPageVM || CurrentScreen == SqlliteDataGridVM;
         public void NavigateToDeliveryDriver() => CurrentScreen = DeliveryDriverVM;
         public void NavigateToDropOff() => CurrentScreen = DropOffVM;
         public void NavigateBack()
         {
-            if(CurrentScreen==DropOffVM)
+            if (CurrentScreen == DropOffVM)
             {
                 CurrentScreen = HomeVM;
             }
-            else if(CurrentScreen==DeliveryDriverVM)
+            else if (CurrentScreen == DeliveryDriverVM)
             {
                 CurrentScreen = DropOffVM;
             }
@@ -67,11 +69,16 @@ namespace OOH.POD.ViewModels
             }
             else if (CurrentScreen == GridPageVM)
             {
+                CurrentScreen = FrmEnterBarcodePageVM;
+            }
+            else if (CurrentScreen == SqlliteDataGridVM)
+            {
                 CurrentScreen = GridPageVM;
             }
         }
 
         public void NavigateTorecipients() => CurrentScreen = RecipientsPageVM;
+        public void NavigateNextPage() => CurrentScreen = SqlliteDataGridVM;
         public void NavigateToFrmScanBarcode() => CurrentScreen = FrmScanBarcodePageVM;
         public void NavigateToFrmEnterBarcode() => CurrentScreen = FrmEnterBarcodePageVM;
 
