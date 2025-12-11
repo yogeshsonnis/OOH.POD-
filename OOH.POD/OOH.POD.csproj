@@ -9,13 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="NewFolder\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <None Remove="NewFolder\**" />
-    <Page Remove="NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Images\amazon.png" />
     <None Remove="Images\anpost.png" />
     <None Remove="Images\BarCodeScanner.png" />
@@ -31,6 +24,10 @@
     <None Remove="Images\oohpod.png" />
     <None Remove="Images\UPS.png" />
     <None Remove="Images\YOdelpng.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.11" />
   </ItemGroup>
 
   <ItemGroup>
