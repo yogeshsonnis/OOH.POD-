@@ -8,9 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
-            <Button Content="Load" Command="{Binding LoadCommand}" Margin="0,0,10,0"/>
-            <Button Content="Save" Command="{Binding SaveCommand}"/>
-            <Button Content="Delete Compartment"
+            <Button Content="Load" Style="{StaticResource BlueButtonStyle}" Command="{Binding LoadCommand}" Margin="0,0,10,0"/>
+            <Button Content="Save" Style="{StaticResource BlueButtonStyle}" Command="{Binding SaveCommand}"/>
+            <Button Content="Delete Compartment" Style="{StaticResource BlueButtonStyle}"
      Command="{Binding DeleteCompartmentCommand}"
      
      Margin="10,0,10,0"/>
